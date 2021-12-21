@@ -127,13 +127,27 @@ function crearelementos (felemento,fclase,fidentificador,fcontenedor,fplace){
   elemento.appendChild(tArea);
 } 
 //////Creamos los contenedores
-crearelementos ("input","cInput","idInput","idTotal","Cantidad a pagar");
-crearelementos ("input","cInput","idInput1","idTotal","Importe");
-crearelementos ("button","cCButton","idButton","idTotal");
+crearelementos ("span","cSpan","idSpan","idTotal","");
+crearelementos ("div","cCuentas","idCuentas","idTotal","");
+crearelementos ("span","cSpan","idSpan1","idTotal","");
+crearelementos ("div","cGeometria","idGeometria","idTotal","");
 
+crearelementos ("input","cInput","idInput","idCuentas","Cantidad a pagar");
+crearelementos ("input","cInput","idInput1","idCuentas","Importe");
+crearelementos ("button","cCButton","idButton","idCuentas");
+
+
+crearelementos ("input","cInput","idInput2","idGeometria","Tamaño de la figura");
+crearelementos ("input","cInput","idInput3","idGeometria","Caracter a dibujar");
+crearelementos ("button","cCButton","idButton1","idGeometria");
+
+document.getElementById("idSpan").innerText= "Tienda";
+document.getElementById("idSpan1").innerText= "Dibujo";
 document.getElementById("idButton").innerText= "Calcular Cambio";
+document.getElementById("idButton1").innerText= "Dibujar";
 
 document.getElementById("idButton").addEventListener("click",()=>calcularCambio(document.getElementById("idInput").value,document.getElementById("idInput1").value))
+document.getElementById("idButton1").addEventListener("click",()=>dibujar(document.getElementById("idInput2").value,document.getElementById("idInput3").value))
 
 function calcularCambio (precio,pagado){
   console.log("//////////////////SU CAMBIO ES DE////////////////")
@@ -173,3 +187,141 @@ function calcular (fdif,num,qt,msg,msg1){
   else if(tcambio==1){console.log(tcambio + " " + msg1)}
   return fdif;
 }
+//////////DIBUJAR FIGURAS
+//////////
+function dibujar (pisos,char){
+  cuadrado(pisos,char);
+  cuadradoBordes(pisos, "B", "*");
+  cuadradoDiagonal(pisos, "A", "*", "B");
+  cuadradoDiagonald(pisos, "A", "*", "B");
+  medioDiamante(pisos,char);
+  piramide(pisos,char);
+  diamante(pisos,char);
+}
+
+function cuadrado (level,ch){
+  console.log("CUADRADO");
+  for(fila=0;fila<level;fila++){
+    cht="";
+    for(cl=0;cl<level;cl++){
+      cht=cht+ch;
+      if(cl==level-1){
+        console.log(cht + "\n");}
+    }
+  }
+}
+
+function cuadradoBordes (level,ch,ast){
+  console.log("CUADRADO BORDE");
+  for(fila=0;fila<level;fila++){
+    cht="";
+    for(cl=0;cl<level;cl++){
+      if(fila==0 || fila == level-1){
+      cht=cht+ch;}else{
+        if(cl==0 || cl == level-1){
+          cht=cht+ch;
+        }else{cht=cht+ast}
+      }
+      if(cl==level-1){
+        console.log(cht + "\n");}
+    }
+  }
+}
+
+function cuadradoDiagonal (level,ch,ast,up){
+  console.log("CUADRADO DIAGONAL");
+  for(fila=0;fila<level;fila++){
+    cht="";
+    for(cl=0;cl<level;cl++){
+      if(fila<cl){
+      cht=cht+up;}
+      else if(cl<fila){
+          cht=cht+ch;
+        }
+        else{cht=cht+ast}
+        if(cl===level-1){console.log(cht + "\n");}
+      }   
+    }
+  }
+
+  function cuadradoDiagonald (level,ch,ast,up){
+    console.log("CUADRADO DIAGONAL RL");
+    for(fila=0;fila<level;fila++){
+      cht="";
+      for(cl=0;cl<level;cl++){
+        if(cl<(level-fila)-1){
+        cht=cht+up;}
+        else if(cl==(level-fila)-1){
+            cht=cht+ast;
+          }
+          else{cht=cht+ch}
+          if(cl===level-1){
+            console.log(cht + "\n");}
+        }      
+      }
+    }
+
+    function medioDiamante (level,ch){
+      console.log("MEDIO DIAMANTE");
+      for(fila=0;fila<level;fila++){
+        cht="";
+        for(cl=0;cl<level;cl++){
+          if(fila>=cl){
+          cht=cht+ch;}
+          if(cl==level-1){
+            console.log(cht + "\n");}
+        }
+      }
+      for(fila=0;fila<level-1;fila++){
+        cht="";
+        for(cl=0;cl<level;cl++){
+          if(fila<=cl-1){
+          cht=cht+ch;}
+          if(cl==level-1){
+            console.log(cht + "\n");}
+        }
+      }
+    }
+
+    function piramide (level,ch){
+      console.log("PIRAMIDE");
+      for(fila=0;fila<level;fila++){
+        cht="";
+        for(cl=0;cl<level;cl++){
+          if(cl<((level-fila)-1) || cl>((level+fila)-1)){
+          cht=cht+" ";}else{cht=cht+ch;}  
+        }
+        for(cl=0;cl<level;cl++){
+          if(fila>cl){
+          cht=cht+ch;}
+        }
+        console.log(cht + "\n");
+      }
+    }
+    function diamante (level,ch){
+      console.log("PIRAMIDE");
+      for(fila=0;fila<level;fila++){
+        cht="";
+        for(cl=0;cl<level;cl++){
+          if(cl<((level-fila)-1) || cl>((level+fila)-1)){
+          cht=cht+" ";}else{cht=cht+ch;}  
+        }
+        for(cl=0;cl<level;cl++){
+          if(fila>cl){
+          cht=cht+ch;}
+        }
+        console.log(cht + "\n");
+      }
+      for(fila=0;fila<level-1;fila++){
+        cht="";
+        for(cl=0;cl<level;cl++){
+          if(cl<=fila){
+          cht=cht+" ";}else{cht=cht+ch;}  
+        }
+        for(cl=0;cl<level-1;cl++){
+          if(cl<=level-3-fila){
+          cht=cht+ch;}
+        }
+        console.log(cht + "\n");
+      }
+    }
